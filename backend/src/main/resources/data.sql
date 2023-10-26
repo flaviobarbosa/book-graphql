@@ -1,0 +1,2 @@
+insert into book(id, title, isbn10, pages, publisher, author, subject, published_at)
+values ('055f4232-aeb7-4ad2-9295-67ec7240c259', 'Clean Code', '8576082675', 240, 'Alta Books', 'Robert Martin', 'IT', '2000-10-23');
