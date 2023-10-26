@@ -4,6 +4,7 @@ import com.github.flaviobarbosa.bookql.domain.BookRepository;
 import com.github.flaviobarbosa.bookql.domain.model.Book;
 import com.github.flaviobarbosa.bookql.domain.service.BookService;
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,10 @@ public class BookServiceImpl implements BookService {
   @Override
   public List<Book> getAllBooks() {
     return bookRepository.findAll();
+  }
+
+  @Override
+  public Book getById(UUID id) {
+    return bookRepository.findById(id).orElse(null);
   }
 }
