@@ -1,9 +1,9 @@
 type Query {
-    books: [Book]
-    bookById(id: ID): Book
+    books: [BookDTO]
+    bookById(id: ID): BookDTO
 }
 
-type Book {
+type BookDTO {
     id: ID!
     title: String!
     isbn10: String
