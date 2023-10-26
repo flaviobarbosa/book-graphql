@@ -1,13 +1,29 @@
 type Query {
-    books: [BookDTO]
-    bookById(id: ID): BookDTO
+    books: [BookOutput]
+    bookById(id: ID): BookOutput
 }
 
-type BookDTO {
+type Mutation {
+    addBook(book: BookInput!): BookOutput!
+}
+
+type BookOutput {
     id: ID!
     title: String!
     isbn10: String
-    pages: Int
+    isbn13: String
+    pages: Int!
+    publisher: String!
+    author: String!
+    subject: String!
+    publishedAt: String!
+}
+
+input BookInput {
+    title: String!
+    isbn10: String
+    isbn13: String
+    pages: Int!
     publisher: String!
     author: String!
     subject: String!

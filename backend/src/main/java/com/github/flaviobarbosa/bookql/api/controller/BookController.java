@@ -1,6 +1,7 @@
 package com.github.flaviobarbosa.bookql.api.controller;
 
-import com.github.flaviobarbosa.bookql.api.model.BookDTO;
+import com.github.flaviobarbosa.bookql.api.model.BookInput;
+import com.github.flaviobarbosa.bookql.api.model.BookOutput;
 import com.github.flaviobarbosa.bookql.domain.model.Book;
 import com.github.flaviobarbosa.bookql.domain.service.BookService;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
@@ -20,16 +22,23 @@ public class BookController {
   ModelMapper mapper;
 
   @QueryMapping
-  public List<BookDTO> books() {
+  public List<BookOutput> books() {
     return bookService.getAllBooks()
         .stream()
-        .map(book -> mapper.map(book, BookDTO.class))
+        .map(book -> mapper.map(book, BookOutput.class))
         .collect(Collectors.toList());
   }
 
   @QueryMapping
-  public BookDTO bookById(@Argument UUID id) {
+  public BookOutput bookById(@Argument UUID id) {
     Book book = bookService.getById(id);
-    return mapper.map(book, BookDTO.class);
+    return mapper.map(book, BookOutput.class);
+  }
+
+  @MutationMapping
+  public BookOutput addBook(@Argument(name = "book") BookInput bookInput) {
+    Book book = mapper.map(bookInput, Book.class);
+    book = bookService.save(book);
+    return mapper.map(book, BookOutput.class);
   }
 }

@@ -9,4 +9,6 @@ public interface BookService {
   List<Book> getAllBooks();
 
   Book getById(UUID id);
+
+  Book save(Book book);
 }

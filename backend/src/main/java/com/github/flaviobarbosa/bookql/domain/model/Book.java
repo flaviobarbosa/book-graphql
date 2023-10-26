@@ -20,6 +20,8 @@ public class Book {
 
   private String isbn10;
 
+  private String isbn13;
+
   private Integer pages;
 
   private String publisher;
