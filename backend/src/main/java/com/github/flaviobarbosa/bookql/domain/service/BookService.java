@@ -11,4 +11,6 @@ public interface BookService {
   Book getById(UUID id);
 
   Book save(Book book);
+
+  Book update(UUID id, Book updatedBook);
 }

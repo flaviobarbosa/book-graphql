@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
     addBook(book: BookInput!): BookOutput!
+    updateBook(id: ID!, book: BookInput!): BookOutput!
 }
 
 type BookOutput {

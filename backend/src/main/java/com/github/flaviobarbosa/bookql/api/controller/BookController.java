@@ -41,4 +41,11 @@ public class BookController {
     book = bookService.save(book);
     return mapper.map(book, BookOutput.class);
   }
+
+  @MutationMapping
+  public BookOutput updateBook(@Argument UUID id, @Argument(name = "book") BookInput bookInput) {
+    Book updatedBook = mapper.map(bookInput, Book.class);
+    Book book = bookService.update(id, updatedBook);
+    return mapper.map(book, BookOutput.class);
+  }
 }
