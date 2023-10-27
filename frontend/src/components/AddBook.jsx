@@ -23,7 +23,7 @@ const AddBook = () => {
 
   const navigate = useNavigate();
 
-  const [addBook] = useMutation(ADD_BOOK, { onCompleted: () => navigate('/') });
+  const [addBook, { error, reset }] = useMutation(ADD_BOOK, { onCompleted: () => navigate('/') });
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -42,6 +42,11 @@ const AddBook = () => {
         },
       },
     });
+  }
+
+  if (error) {
+    alert(error.message);
+    reset();
   }
 
   return (
