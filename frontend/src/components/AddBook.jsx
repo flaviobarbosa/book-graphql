@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { gql, useMutation } from '@apollo/client';
 
 const ADD_BOOK = gql`
@@ -10,16 +12,18 @@ const ADD_BOOK = gql`
 `;
 
 const AddBook = () => {
-  const [title, setTitle] = useState('');
-  const [isbn10, setIsbn10] = useState('');
-  const [isbn13, setIsbn13] = useState('');
-  const [pages, setPages] = useState(0);
-  const [publisher, setPublisher] = useState('');
-  const [author, setAuthor] = useState('');
-  const [subject, setSubject] = useState('');
-  const [publishedAt, setPublishedAt] = useState('');
+  const [title, setTitle] = useState(null);
+  const [isbn10, setIsbn10] = useState(null);
+  const [isbn13, setIsbn13] = useState(null);
+  const [pages, setPages] = useState(null);
+  const [publisher, setPublisher] = useState(null);
+  const [author, setAuthor] = useState(null);
+  const [subject, setSubject] = useState(null);
+  const [publishedAt, setPublishedAt] = useState(null);
 
-  const [addBook] = useMutation(ADD_BOOK);
+  const navigate = useNavigate();
+
+  const [addBook] = useMutation(ADD_BOOK, { onCompleted: () => navigate('/') });
 
   function handleSubmit(e) {
     e.preventDefault();
