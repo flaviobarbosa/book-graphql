@@ -1,0 +1,123 @@
+import { useState } from 'react';
+import { gql, useMutation } from '@apollo/client';
+
+const ADD_BOOK = gql`
+  mutation AddBook($input: BookInput!) {
+    addBook(book: $input) {
+      id
+    }
+  }
+`;
+
+const AddBook = () => {
+  const [title, setTitle] = useState('');
+  const [isbn10, setIsbn10] = useState('');
+  const [isbn13, setIsbn13] = useState('');
+  const [pages, setPages] = useState(0);
+  const [publisher, setPublisher] = useState('');
+  const [author, setAuthor] = useState('');
+  const [subject, setSubject] = useState('');
+  const [publishedAt, setPublishedAt] = useState('');
+
+  const [addBook] = useMutation(ADD_BOOK);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    addBook({
+      variables: {
+        input: {
+          title,
+          isbn10,
+          isbn13,
+          pages: Number(pages),
+          publisher,
+          author,
+          subject,
+          publishedAt,
+        },
+      },
+    });
+  }
+
+  return (
+    <div style={{ display: 'grid', placeItems: 'center', width: '100vw', marginTop: '3rem' }}>
+      <form style={{ display: 'grid', gap: '1rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label htmlFor={'title'}>Title</label>
+          <input type='text' id='title' value={title} onChange={(e) => setTitle(e.target.value)} />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label htmlFor={'isbn10'}>ISBN10</label>
+          <input
+            type='text'
+            id='isbn10'
+            value={isbn10}
+            onChange={(e) => setIsbn10(e.target.value)}
+          />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label htmlFor={'isbn13'}>ISBN13</label>
+          <input
+            type='text'
+            id='isbn13'
+            value={isbn13}
+            onChange={(e) => setIsbn13(e.target.value)}
+          />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label htmlFor={'pages'}>Pages</label>
+          <input
+            type='number'
+            id='pages'
+            value={pages}
+            onChange={(e) => setPages(e.target.value)}
+          />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label htmlFor={'publisher'}>Publisher</label>
+          <input
+            type='text'
+            id='publisher'
+            value={publisher}
+            onChange={(e) => setPublisher(e.target.value)}
+          />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label htmlFor={'author'}>Author</label>
+          <input
+            type='text'
+            id='author'
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label htmlFor={'subject'}>Subject</label>
+          <input
+            type='text'
+            id='subject'
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+          />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label htmlFor={'publishedAt'}>Published Date</label>
+          <input
+            type='date'
+            id='publishedAt'
+            value={publishedAt}
+            onChange={(e) => setPublishedAt(e.target.value)}
+          />
+        </div>
+        <div>
+          <button style={{ width: '100%' }} onClick={handleSubmit}>
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default AddBook;
