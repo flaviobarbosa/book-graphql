@@ -1,4 +1,5 @@
 import { useQuery, gql } from '@apollo/client';
+import Book from "./components/Book.jsx";
 function App() {
 
   const GET_ALL_BOOKS = gql`
@@ -24,15 +25,12 @@ function App() {
 
   return (
     <>
-    {
-      data.books.map(({id, title, pages, publisher, author, subject, publishedAt}) => (
-        <div key={id}>
-          <h3>{title}</h3>
-          <p>{author} - {pages} pages - {subject} - {publisher} - {publishedAt}</p>
-        </div>
-      ))
-    }
-
+      <div style={{'display': 'flex', 'flexDirection': 'column', alignItems: 'center', width: '100vw', marginTop: '3rem'}}>
+        <button style={{marginBottom: '4rem'}}>Add book</button>
+        {
+          data.books.map((book) => <Book key={book.id} {...book} />)
+        }
+      </div>
     </>
   )
 }
