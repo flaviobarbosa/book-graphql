@@ -44,6 +44,10 @@ const AddBook = () => {
     });
   }
 
+  function handleCancel() {
+    navigate('/');
+  }
+
   if (error) {
     alert(error.message);
     reset();
@@ -119,10 +123,9 @@ const AddBook = () => {
             onChange={(e) => setPublishedAt(e.target.value)}
           />
         </div>
-        <div>
-          <button style={{ width: '100%' }} onClick={handleSubmit}>
-            Add
-          </button>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button onClick={handleSubmit}>Add</button>
+          <button onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>
