@@ -36,7 +36,7 @@ function App() {
           width: '100vw',
           marginTop: '3rem',
         }}>
-        <button style={{ marginBottom: '4rem' }} onClick={() => navigate('/add-book')}>
+        <button style={{ marginBottom: '4rem' }} onClick={() => navigate('/add')}>
           Add book
         </button>
         {data.books.map((book) => (
