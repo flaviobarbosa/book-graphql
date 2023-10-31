@@ -40,4 +40,14 @@ public class BookServiceImpl implements BookService {
 
     return book;
   }
+
+  @Override
+  public Boolean deleteById(UUID id) {
+    if(bookRepository.existsById(id)) {
+      bookRepository.deleteById(id);
+      return true;
+    }
+
+    return false;
+  }
 }

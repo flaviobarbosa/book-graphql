@@ -48,4 +48,9 @@ public class BookController {
     Book book = bookService.update(id, updatedBook);
     return mapper.map(book, BookOutput.class);
   }
+
+  @MutationMapping
+  public Boolean deleteById(@Argument UUID id) {
+    return bookService.deleteById(id);
+  }
 }

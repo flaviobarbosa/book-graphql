@@ -13,4 +13,6 @@ public interface BookService {
   Book save(Book book);
 
   Book update(UUID id, Book updatedBook);
+
+  Boolean deleteById(UUID id);
 }
