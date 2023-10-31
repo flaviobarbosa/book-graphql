@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { gql, useMutation } from '@apollo/client';
 import BookForm from './BookForm';
+import { useBook } from '../hooks/useBook';
 
 const ADD_BOOK = gql`
   mutation AddBook($input: BookInput!) {
@@ -14,29 +15,29 @@ const ADD_BOOK = gql`
 const AddBook = () => {
   const navigate = useNavigate();
 
+  const { book } = useBook();
+
   const [addBook, { error, reset, loading }] = useMutation(ADD_BOOK, {
-    onCompleted: () => navigate('/'),
+    onCompleted: () => navigate('/', { replace: true }),
   });
 
   function handleAddBook(e) {
     e.preventDefault();
 
-    alert('handle add');
-
-    // addBook({
-    //   variables: {
-    //     input: {
-    //       title,
-    //       isbn10,
-    //       isbn13,
-    //       pages: Number(pages),
-    //       publisher,
-    //       author,
-    //       subject,
-    //       publishedAt,
-    //     },
-    //   },
-    // });
+    addBook({
+      variables: {
+        input: {
+          title: book.title,
+          isbn10: book.isbn10,
+          isbn13: book.isbn13,
+          pages: Number(book.pages),
+          publisher: book.publisher,
+          author: book.author,
+          subject: book.subject,
+          publishedAt: book.publishedAt,
+        },
+      },
+    });
   }
 
   if (error) {
@@ -44,7 +45,7 @@ const AddBook = () => {
     reset();
   }
 
-  return <BookForm onSubmit={handleAddBook} loading={loading} />;
+  return <BookForm action='add' onSubmit={handleAddBook} loading={loading} />;
 };
 
 export default AddBook;

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import Book from './components/Book.jsx';
+import { useEffect } from 'react';
 
 function App() {
   const GET_ALL_BOOKS = gql`
@@ -18,9 +19,15 @@ function App() {
     }
   `;
 
-  const { data, loading, error } = useQuery(GET_ALL_BOOKS);
+  const { data, loading, error } = useQuery(GET_ALL_BOOKS, {
+    fetchPolicy: 'network-only',
+  });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   if (loading) return <p>loading...</p>;
 
